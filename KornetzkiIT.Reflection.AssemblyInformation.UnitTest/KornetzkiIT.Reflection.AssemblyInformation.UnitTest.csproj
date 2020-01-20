@@ -4,10 +4,20 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <IsPackable>false</IsPackable>
 		<Configurations>Debug;Release</Configurations>
-		<AssemblyVersion>0.1.0.2</AssemblyVersion>
-		<FileVersion>1.1.0.2</FileVersion>
+		<Authors>Kornetzki IT</Authors>
+		<Company>Kornetzki IT-/Mediendienstleistungen</Company>
+		<Copyright>Copyright © 2019-2020 Sören Kornetzki</Copyright>
+		<RepositoryUrl>https://github.com/soerenkornetzki/KornetzkiIT.Reflection.AssemblyInformation.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/soerenkornetzki/KornetzkiIT.Reflection.AssemblyInformation</PackageProjectUrl>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<PackageTags>reflection assembly information</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<ApplicationIcon />
+		<AssemblyVersion>0.1.0.3</AssemblyVersion>
+		<FileVersion>1.1.0.3</FileVersion>
 		<VersionPrefix>0.1.0</VersionPrefix>
-		<VersionSuffix>alpha.2</VersionSuffix>
+		<VersionSuffix>alpha3</VersionSuffix>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>

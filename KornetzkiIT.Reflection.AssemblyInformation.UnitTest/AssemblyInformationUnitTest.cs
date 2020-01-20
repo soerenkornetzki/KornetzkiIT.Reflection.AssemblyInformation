@@ -115,19 +115,19 @@ namespace KornetzkiIT.Reflection.AssemblyInformation.UnitTest
             );
 
             Assert.AreEqual(
-                new Version("0.1.0.2"),
+                new Version("0.1.0.3"),
                 info.Version,
                 "Returns expected value for Version"
             );
 
             Assert.AreEqual(
-                new Version("0.1.0.2"),
+                new Version("0.1.0.3"),
                 info.FileVersion,
                 "Returns expected value for FileVersion"
             );
 
             Assert.AreEqual(
-                "0.1.0-alpha.2",
+                "0.1.0-alpha3",
                 info.InformationalVersion,
                 "Returns expected value for InformationalVersion"
             );
