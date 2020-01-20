@@ -16,6 +16,7 @@ guidelines = 80
 # Solution/project files
 [*.{sln,csproj,csproj.user,vbproj,vbproj.user}]
 indent_style = tab
+indent_size = 2
 insert_final_newline = false
 charset = utf-8-bom
 
