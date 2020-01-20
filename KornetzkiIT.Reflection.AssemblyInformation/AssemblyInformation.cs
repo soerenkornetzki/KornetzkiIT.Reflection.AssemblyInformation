@@ -12,6 +12,15 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
     /// </summary>
     public class AssemblyInformation
     {
+        #region Static Properties
+
+        /// <summary>
+        /// Returns an initialized instance of the <see cref="AssemblyInformation"/>
+        /// </summary>
+        public static AssemblyInformation EntryAssembly { get; } = new AssemblyInformation(Assembly.GetEntryAssembly());
+
+        #endregion
+
         #region Class Properties
 
         /// <summary>
@@ -120,7 +129,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 Guid = null;
-                Debug.Fail(string.Format("Could not extract GuidAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract GuidAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract GuidAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -128,7 +137,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 Product = null;
-                Debug.Fail(string.Format("Could not extract AssemblyProductAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyProductAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyProductAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -136,7 +145,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 Title = null;
-                Debug.Fail(string.Format("Could not extract AssemblyTitleAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyTitleAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyTitleAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -144,7 +153,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 Description = null;
-                Debug.Fail(string.Format("Could not extract AssemblyDescriptionAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyDescriptionAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyDescriptionAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -152,7 +161,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 Company = null;
-                Debug.Fail(string.Format("Could not extract AssemblyCompanyAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyCompanyAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyCompanyAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -160,7 +169,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 Copyright = null;
-                Debug.Fail(string.Format("Could not extract AssemblyCopyrightAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyCopyrightAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyCopyrightAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -168,7 +177,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 Trademark = null;
-                Debug.Fail(string.Format("Could not extract AssemblyTrademarkAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyTrademarkAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyTrademarkAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -176,23 +185,37 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 Configuration = null;
-                Debug.Fail(string.Format("Could not extract AssemblyConfigurationAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyConfigurationAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyConfigurationAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
-            try { Culture = new CultureInfo(((AssemblyCultureAttribute)TargetAssembly.GetCustomAttribute(typeof(AssemblyCultureAttribute))).Culture); }
+            try
+            {
+                string cultureString = ((AssemblyCultureAttribute)TargetAssembly.GetCustomAttribute(typeof(AssemblyCultureAttribute))).Culture;
+                if (string.IsNullOrWhiteSpace(cultureString))
+                    Culture = null;
+                else
+                    Culture = new CultureInfo(cultureString);
+            }
             catch (Exception e)
             {
                 Culture = null;
-                Debug.Fail(string.Format("Could not extract AssemblyCultureAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyCultureAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyCultureAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
-            try { NeutralResourcesLanguage = new CultureInfo(((NeutralResourcesLanguageAttribute)TargetAssembly.GetCustomAttribute(typeof(NeutralResourcesLanguageAttribute))).CultureName); }
+            try
+            {
+                string cultureString = ((NeutralResourcesLanguageAttribute)TargetAssembly.GetCustomAttribute(typeof(NeutralResourcesLanguageAttribute))).CultureName;
+                if (string.IsNullOrWhiteSpace(cultureString))
+                    NeutralResourcesLanguage = null;
+                else
+                    NeutralResourcesLanguage = new CultureInfo(cultureString);
+            }
             catch (Exception e)
             {
                 NeutralResourcesLanguage = null;
-                Debug.Fail(string.Format("Could not extract NeutralResourcesLanguageAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract NeutralResourcesLanguageAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract NeutralResourcesLanguageAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -200,7 +223,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 ComVisible = null;
-                Debug.Fail(string.Format("Could not extract ComVisibleAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract ComVisibleAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract ComVisibleAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -208,15 +231,19 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 CLSCompliant = null;
-                Debug.Fail(string.Format("Could not extract CLSCompliantAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract CLSCompliantAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract CLSCompliantAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
-            try { Version = System.Version.Parse(((AssemblyVersionAttribute)TargetAssembly.GetCustomAttribute(typeof(AssemblyVersionAttribute))).Version); }
+            try
+            {
+                try { Version = System.Version.Parse(((AssemblyVersionAttribute)TargetAssembly.GetCustomAttribute(typeof(AssemblyVersionAttribute))).Version); }
+                catch { Version = TargetAssembly.GetName().Version; }
+            }
             catch (Exception e)
             {
                 Version = null;
-                Debug.Fail(string.Format("Could not extract AssemblyVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -224,7 +251,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 FileVersion = null;
-                Debug.Fail(string.Format("Could not extract AssemblyFileVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyFileVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyFileVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
 
@@ -232,7 +259,7 @@ namespace KornetzkiIT.Reflection.AssemblyInformation
             catch (Exception e)
             {
                 InformationalVersion = null;
-                Debug.Fail(string.Format("Could not extract AssemblyInformationalVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
+                Debug.WriteLine(string.Format("Could not extract AssemblyInformationalVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message), e.StackTrace);
                 Trace.TraceWarning("Could not extract AssemblyInformationalVersionAttribute: {0} {1}", e.GetType().ToString(), e.Message);
             }
         }

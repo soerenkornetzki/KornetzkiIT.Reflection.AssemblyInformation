@@ -13,6 +13,8 @@
 		<PackageTags>reflection assembly information</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ApplicationIcon />
+		<AssemblyVersion>0.1.0.2</AssemblyVersion>
+		<FileVersion>0.1.0.2</FileVersion>
 		<VersionPrefix>0.1.0</VersionPrefix>
 		<VersionSuffix>alpha.2</VersionSuffix>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
