@@ -16,7 +16,8 @@ pipeline {
 
     stage('Test') {
       steps {
-        dotnetTest(blame: true, noBuild: true, noRestore: true, nologo: true, unstableIfWarnings: true)
+        dotnetTest(blame: true, noBuild: true, noRestore: true, nologo: true, unstableIfWarnings: true, logger: 'trx;LogFileName=unit_tests.xml')
+        mstest(testResultsFile: '**/unit_tests.xml', failOnError: true, keepLongStdio: true)
       }
     }
 
